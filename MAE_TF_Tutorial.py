@@ -145,17 +145,14 @@ def train_my_neural_network():
     plot_data(input_data,output_data)
 
     t0 = time.time()
+    #Start network code
+    batch_size = 200
+    x_true, y_true = placeholders(n_inputs, n_outputs)
 
-    with tf.device("/gpu:0"):
-
-	    #Start network code
-	    batch_size = 200
-	    x_true, y_true = placeholders(n_inputs, n_outputs)
-
-	    # Initialize weights and biases
-	    weights, biases = define_weights_biases(n_inputs, n_outputs)
-	    prediction = feed_forward(x_true,weights,biases)
-	    cost = our_cost(prediction,y_true)
+    # Initialize weights and biases
+    weights, biases = define_weights_biases(n_inputs, n_outputs)
+    prediction = feed_forward(x_true,weights,biases)
+    cost = our_cost(prediction,y_true)
 
 
     with tf.Session() as sess:
@@ -200,8 +197,8 @@ def train_my_neural_network():
 
                 epoch_loss_val = epoch_loss_val + c_val
 
-            #print('Epoch', epoch, 'completed out of', hm_epochs, 'loss:', epoch_loss)
-            #print('Validation loss:', epoch_loss_val)
+            print('Epoch', epoch, 'completed out of', hm_epochs, 'loss:', epoch_loss)
+            print('Validation loss:', epoch_loss_val)
 
             epoch_loss_array[epoch, 0] = epoch
             epoch_loss_array[epoch, 1] = epoch_loss
